@@ -37,6 +37,22 @@ public class PolicyHandler {
         // Sample Logic //
         Index.makeIndex(event);
     }
+
+    @StreamListener(
+        value = KafkaProcessor.INPUT,
+        condition = "headers['type']=='FileDeleted'"
+    )
+    public void wheneverFileDeleted_DeleteIndex(
+        @Payload FileDeleted fileDeleted
+    ) {
+        FileDeleted event = fileDeleted;
+        System.out.println(
+            "\n\n##### listener DeleteIndex : " + fileDeleted + "\n\n"
+        );
+
+        // Sample Logic //
+        Index.deleteIndex(event);
+    }
     // keep
 
 }
