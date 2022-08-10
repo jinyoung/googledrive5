@@ -31,7 +31,10 @@ public class File {
     public void onPostPersist() {
         FileUploaded fileUploaded = new FileUploaded(this);
         fileUploaded.publishAfterCommit();
+    }
 
+    @PreRemove
+    public void onPreRemove() {
         FileDeleted fileDeleted = new FileDeleted(this);
         fileDeleted.publishAfterCommit();
     }
