@@ -34,11 +34,20 @@ public class Video {
     }
 
     public static void processVideo(FileUploaded fileUploaded) {
-        /** Example 1:  new item 
-        Video video = new Video();
-        repository().save(video);
+        /** Example 1:  new item*/ 
 
-        */
+        if("movie".equals(fileUploaded.getType())){
+
+            Video video = new Video();
+            //....
+            video.setFileId(fileUploaded.getId());
+            video.setUrl("http://youtub.com/" + fileUploaded.getName().replaceAll(" ", "-"));
+            repository().save(video);
+    
+        }
+
+
+        
 
         /** Example 2:  finding and process
         

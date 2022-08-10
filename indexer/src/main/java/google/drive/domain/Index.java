@@ -2,6 +2,9 @@ package google.drive.domain;
 
 import google.drive.IndexerApplication;
 import google.drive.domain.FileIndexed;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -16,7 +19,6 @@ public class Index {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ElementCollection
     @ElementCollection
     private List<String> keywords;
 
@@ -36,11 +38,13 @@ public class Index {
     }
 
     public static void makeIndex(FileUploaded fileUploaded) {
-        /** Example 1:  new item 
+        /** Example 1:  new item         */
         Index index = new Index();
+        index.setFileId(fileUploaded.getId()); /// foreign key 관계 연결
+        index.setKeywords(Arrays.asList(fileUploaded.getName().split(" ")));   //
         repository().save(index);
 
-        */
+
 
         /** Example 2:  finding and process
         
