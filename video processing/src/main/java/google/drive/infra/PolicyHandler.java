@@ -37,6 +37,22 @@ public class PolicyHandler {
         // Sample Logic //
         Video.processVideo(event);
     }
+
+    @StreamListener(
+        value = KafkaProcessor.INPUT,
+        condition = "headers['type']=='FileDeleted'"
+    )
+    public void wheneverFileDeleted_DeleteVideo(
+        @Payload FileDeleted fileDeleted
+    ) {
+        FileDeleted event = fileDeleted;
+        System.out.println(
+            "\n\n##### listener DeleteVideo : " + fileDeleted + "\n\n"
+        );
+
+        // Sample Logic //
+        Video.deleteVideo(event);
+    }
     // keep
 
 }
